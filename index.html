@@ -3,33 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Maps Routes API サンプル</title>
+  <title>Google Maps Directions API</title>
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
 </head>
 <body>
   <div id="map" style="height: 400px;"></div>
 
   <script>
-    // Google Maps Directions Serviceを初期化
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     
-    // 地図を表示するための初期化
     const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 14,
-      center: { lat: 35.6895, lng: 139.6917 }, // 初期の地図の中心座標
+      zoom: 8,
+      center: { lat: 35.6895, lng: 139.6917 }, // 東京を中心に地図を表示
     });
 
     directionsRenderer.setMap(map);
 
-    // 地点の座標を指定
     const locations = [
-      { lat: 35.6895, lng: 139.6917 }, // 例: 東京
-      { lat: 34.6937, lng: 135.5023 }, // 例: 大阪
-      // 他の地点も必要に応じて追加
+      { lat: 35.6895, lng: 139.6917 }, // 東京
+      { lat: 35.4478, lng: 139.6425 }, // 神奈川
+      { lat: 35.6078, lng: 140.1060 }, // 千葉
+      { lat: 35.8617, lng: 139.6455 }, // 埼玉
+      { lat: 36.3703, lng: 140.4714 }, // 茨城県水戸市
     ];
 
-    // 地点間の経路を取得
     function calculateAndDisplayRoute() {
       const waypoints = locations.map(location => ({ location }));
 
@@ -38,7 +36,7 @@
           origin: locations[0],
           destination: locations[0],
           waypoints: waypoints,
-          optimizeWaypoints: true, // 地点の最適化を有効化
+          optimizeWaypoints: true,
           travelMode: 'DRIVING',
         },
         (response, status) => {
@@ -51,7 +49,6 @@
       );
     }
 
-    // 経路を計算して表示
     calculateAndDisplayRoute();
   </script>
 </body>
