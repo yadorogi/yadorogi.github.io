@@ -7,8 +7,12 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAtsxaRQmakZQsAOUPNx4N_Fh9m3IiqAg&libraries=places"></script>
 </head>
 <body>
-  <div id="map" style="height: 400px;"></div>
-
+  <div id="map" style="height: 400px; width: 400px;"></div>
+    <div>
+      <h2>ルート検索</h2>
+      <p>港区立芝浦から港区立中之町までのルートを検索します。</p>
+      <p>港区立芝浦 → 港区立三光 → 港区立麻布 → 港区立南山 → 港区立中之町</p>
+    </div>
   <script>
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -26,6 +30,7 @@
       { lat: 35.661488, lng: 139.738892 }, // 港区立麻布
       { lat: 35.657219, lng: 139.730392 }, // 港区立南山
       { lat: 35.666023, lng: 139.732208 }, // 港区立中之町
+      { lat: 35.638591, lng: 139.746087 }, // 港区立芝浦
     ];
 
     function calculateAndDisplayRoute() {
@@ -34,7 +39,7 @@
       directionsService.route(
         {
           origin: locations[0],
-          destination: locations[4],
+          destination: locations[5],
           waypoints: waypoints,
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
