@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Maps Directions API</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+</head>
+<body>
+  <div id="map" style="height: 400px;"></div>
+
+  <script>
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: { lat: 35.6895, lng: 139.6917 }, // 東京を中心に地図を表示
+    });
+
+    directionsRenderer.setMap(map);
+
+    const locations = [
+      { lat: 35.6895, lng: 139.6917 }, // 東京
+      { lat: 35.4478, lng: 139.6425 }, // 神奈川
+      { lat: 35.6078, lng: 140.1060 }, // 千葉
+      { lat: 35.8617, lng: 139.6455 }, // 埼玉
+      { lat: 36.3703, lng: 140.4714 }, // 茨城県水戸市
+    ];
+
+    function calculateAndDisplayRoute() {
+      const waypoints = locations.map(location => ({ location }));
+
+      directionsService.route(
+        {
+          origin: locations[0],
+          destination: locations[0],
+          waypoints: waypoints,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING',
+        },
+        (response, status) => {
+          if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        }
+      );
+    }
+
+    calculateAndDisplayRoute();
+  </script>
+</body>
+</html>
