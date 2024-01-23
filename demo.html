@@ -15,17 +15,17 @@
     
     const map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
-      center: { lat: 35.6895, lng: 139.6917 }, // 東京を中心に地図を表示
+      center: { lat: 35.638591, lng: 139.746087 }, // 港区立芝浦を中心に地図を表示
     });
 
     directionsRenderer.setMap(map);
 
     const locations = [
-      { lat: 35.6895, lng: 139.6917 }, // 東京
-      { lat: 35.4478, lng: 139.6425 }, // 神奈川
-      { lat: 35.6078, lng: 140.1060 }, // 千葉
-      { lat: 35.8617, lng: 139.6455 }, // 埼玉
-      { lat: 36.3703, lng: 140.4714 }, // 茨城県水戸市
+      { lat: 35.638591, lng: 139.746087 }, // 港区立芝浦
+      { lat: 35.645012, lng: 139.728899 }, // 港区立三光
+      { lat: 35.661488, lng: 139.738892 }, // 港区立麻布
+      { lat: 35.657219, lng: 139.730392 }, // 港区立南山
+      { lat: 35.666023, lng: 139.732208 }, // 港区立中之町
     ];
 
     function calculateAndDisplayRoute() {
@@ -34,7 +34,7 @@
       directionsService.route(
         {
           origin: locations[0],
-          destination: locations[0],
+          destination: locations[4],
           waypoints: waypoints,
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
@@ -43,7 +43,7 @@
           if (status === 'OK') {
             directionsRenderer.setDirections(response);
           } else {
-            window.alert('Directions request failed due to ' + status);
+            window.alert( status + ' が原因でルート検索に失敗しました。');
           }
         }
       );
