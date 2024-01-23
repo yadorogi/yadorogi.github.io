@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Maps Directions API</title>
+  <title>ルート周回経路検索 デモ</title>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAtsxaRQmakZQsAOUPNx4N_Fh9m3IiqAg&libraries=places"></script>
 </head>
 <body>
   <div id="map" style="height: 400px; width: 400px;"></div>
     <div>
       <h2>ルート検索</h2>
-      <p>港区立芝浦から港区立中之町までのルートを検索します。</p>
-      <p>港区立芝浦 → 港区立三光 → 港区立麻布 → 港区立南山 → 港区立中之町</p>
+      <p>港区立芝浦から港区立中之町、港区立麻布、港区立南山、港区立中之町を経由して元の港区立芝浦まで戻るルートを検索します。</p>
+      <p>港区立芝浦 → 港区立三光 → 港区立麻布 → 港区立南山 → 港区立中之町 → 港区立芝浦</p>
     </div>
   <script>
     const directionsService = new google.maps.DirectionsService();
@@ -25,17 +25,21 @@
     directionsRenderer.setMap(map);
 
     const locations = [
-      { lat: 35.638591, lng: 139.746087 }, // 港区立芝浦
-      { lat: 35.645012, lng: 139.728899 }, // 港区立三光
-      { lat: 35.661488, lng: 139.738892 }, // 港区立麻布
-      { lat: 35.657219, lng: 139.730392 }, // 港区立南山
-      { lat: 35.666023, lng: 139.732208 }, // 港区立中之町
-      { lat: 35.638591, lng: 139.746087 }, // 港区立芝浦
+      { lat: 35.638591, lng: 139.746087 }, // 東京都港区芝浦４丁目８番１８号
+      { lat: 35.645012, lng: 139.728899 }, // 経由地1の住所：東京都港区白金３丁目１３−８
+      { lat: 35.661488, lng: 139.738892 }, // 経由地2の住所：東京都港区麻布台１丁目５−１５
+      { lat: 35.657219, lng: 139.730392 }, // 経由地3の住所：東京都港区元麻布三丁目８番３−８
+      { lat: 35.666023, lng: 139.730392 }, // 経由地4の住所：港区立三光 東京都港区白金３丁目１３−８
+      { lat: 35.638591, lng: 139.746087 }, // 東京都港区芝浦４丁目８番１８号（元の住所）
     ];
 
     function calculateAndDisplayRoute() {
       const waypoints = locations.map(location => ({ location }));
 
+      // ルート検索
+      // origin: 出発地点
+      // destination: 目的地
+      // waypoints: 経由地点
       directionsService.route(
         {
           origin: locations[0],
