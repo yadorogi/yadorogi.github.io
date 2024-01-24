@@ -2,7 +2,7 @@
 function initMap() {
     // Create a new map instance
     const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 35.6895, lng: 139.6917 }, // 東京の座標
+        center: { lat: 35.638591, lng: 139.746087 }, // 開始、終了位置位置の座標
         zoom: 12, // Set the initial zoom level
     });
 
@@ -60,8 +60,9 @@ function initMap() {
                     (response, status) => {
                         if (status === "OK") {
                             directionsRenderer.setDirections(response);
+                            displayRouteAddresses(response.routes[0]);
                         } else {
-                            console.log("Directions request failed due to " + status);
+                            console.log("次の理由で巡回ルートの計算に失敗しました：【" + status + "】" );
                         }
                     }
                 );
@@ -71,4 +72,11 @@ function initMap() {
 
     // Call the cycleMarkers function to start cycling through the markers
     cycleMarkers();
+
+    // Function to display the route addresses
+    function displayRouteAddresses(route) {
+        const addresses = route.legs.map((leg) => leg.end_address);
+        console.log(addresses);
+        // Display the addresses in your desired way (e.g., update a DOM element)
+    }
 }
