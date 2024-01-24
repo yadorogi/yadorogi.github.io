@@ -6,7 +6,7 @@ let tourInterval;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 35.6895, lng: 139.6917 }, // 東京の座標
+        center: { lat: 35.689, lng: 139.691 }, // 東京の座標
         zoom: 12
     });
 
