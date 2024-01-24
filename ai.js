@@ -36,6 +36,36 @@ function initMap() {
 
             // Increment the current index
             currentIndex = (currentIndex + 1) % markers.length;
+
+            // Calculate and display the optimized route
+            if (currentIndex === 0) {
+                const directionsService = new google.maps.DirectionsService();
+                const directionsRenderer = new google.maps.DirectionsRenderer({
+                    map: map,
+                });
+
+                const waypoints = markers.map((marker) => ({
+                    location: marker.getPosition(),
+                    stopover: true,
+                }));
+
+                directionsService.route(
+                    {
+                        origin: waypoints[0].location,
+                        destination: waypoints[0].location,
+                        waypoints: waypoints.slice(1),
+                        optimizeWaypoints: true,
+                        travelMode: google.maps.TravelMode.DRIVING,
+                    },
+                    (response, status) => {
+                        if (status === "OK") {
+                            directionsRenderer.setDirections(response);
+                        } else {
+                            console.log("Directions request failed due to " + status);
+                        }
+                    }
+                );
+            }
         }, 2000); // Change the interval as needed
     }
 
