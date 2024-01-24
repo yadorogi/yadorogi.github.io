@@ -2,7 +2,7 @@
 function initMap() {
     // Create a new map instance
     const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 35.638591, lng: 139.746087 }, // Set the initial map center
+        center: { lat: 35.6895, lng: 139.6917 }, // 東京の座標
         zoom: 12, // Set the initial zoom level
     });
 
