@@ -45,8 +45,8 @@
           origin: locations[0],
           destination: locations[5],
           waypoints: waypoints,
-          optimizeWaypoints: true,
-          travelMode: 'DRIVING',
+          optimizeWaypoints: true,  // 経由地点のルートで、より効率的な順序に地点を求める（巡回セールスマン問題の応用）
+          travelMode: 'DRIVING',    // 車でのルート検索（道路網を利用した標準の運転ルート）
         },
         (response, status) => {
           if (status === 'OK') {
