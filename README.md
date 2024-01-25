@@ -7,4 +7,4 @@ This is an experimental repository.
 
 Demonstration of circuit route optimization using Google Maps
 
-[Tetsuo Kawakami Curriculum vitae(CV)](https://yadorogi.github.io/demo2.html)
+[デモ](https://yadorogi.github.io/demo2.html)
