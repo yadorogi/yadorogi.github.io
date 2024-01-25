@@ -1,43 +1,43 @@
-// Initialize the map
+// マップの初期化
 function initMap() {
-    // Create a new map instance
+    // 新しい地図のインスタンスを作成する
     const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 35.638591, lng: 139.746087 }, // 開始、終了位置位置の座標
-        zoom: 12, // Set the initial zoom level
+        center: { lat: 35.638591, lng: 139.746087 }, // 地図の中央に表示する地点を設定する
+        zoom: 12, // 地図の初期ズームレベルを設定
     });
 
-    // Array to store the markers
+    // マーカーを格納する配列
     const markers = [];
 
-    // Add a click event listener to the map
+    // 地図にクリック・イベント・リスナーを追加する
     map.addListener("click", (event) => {
-        // Create a new marker at the clicked location
+        // クリックした位置に新しいマーカーを作成
         const marker = new google.maps.Marker({
             position: event.latLng,
             map: map,
         });
 
-        // Add the marker to the array
+        // マーカーを配列に追加する
         markers.push(marker);
     });
 
-    // Function to cycle through the markers
+    // マーカーを巡回する機能
     function cycleMarkers() {
         let currentIndex = 0;
 
         setInterval(() => {
-            // Remove the previous marker from the map
+            // 地図から前のマーカーを取り除く
             if (currentIndex > 0) {
                 markers[currentIndex - 1].setMap(null);
             }
 
-            // Add the current marker to the map
+            // 現在のマーカーを地図に追加する
             markers[currentIndex].setMap(map);
 
-            // Increment the current index
+            // 巡回ルートの追加に合わせてインデックスを増やす
             currentIndex = (currentIndex + 1) % markers.length;
 
-            // Calculate and display the optimized route
+            // 最適化されたルートを計算し表示する
             if (currentIndex === 0) {
                 const directionsService = new google.maps.DirectionsService();
                 const directionsRenderer = new google.maps.DirectionsRenderer({
@@ -51,32 +51,32 @@ function initMap() {
 
                 directionsService.route(
                     {
-                        origin: waypoints[0].location,
-                        destination: waypoints[0].location,
-                        waypoints: waypoints.slice(1),
-                        optimizeWaypoints: true,
-                        travelMode: google.maps.TravelMode.DRIVING,
+                        origin: waypoints[0].location, // 出発地
+                        destination: waypoints[0].location, // 目的地
+                        waypoints: waypoints.slice(1), // 経由地
+                        optimizeWaypoints: true, // 最適化を有効にする
+                        travelMode: google.maps.TravelMode.DRIVING, // 交通手段を自動車に設定する
                     },
                     (response, status) => {
                         if (status === "OK") {
                             directionsRenderer.setDirections(response);
                             displayRouteAddresses(response.routes[0]);
                         } else {
-                            console.log("次の理由で巡回ルートの計算に失敗しました：【" + status + "】" );
+                            console.log("次の理由でルートを計算に失敗しました：【" + status + "】" );
                         }
                     }
                 );
             }
-        }, 2000); // Change the interval as needed
+        }, 2000); // 必要に応じて間隔を変更
     }
 
-    // Call the cycleMarkers function to start cycling through the markers
+    // cycleMarkers関数を呼び出して、マーカーのサイクルを開始する。
     cycleMarkers();
 
-    // Function to display the route addresses
+    // ルートを表示する
     function displayRouteAddresses(route) {
         const addresses = route.legs.map((leg) => leg.end_address);
         console.log(addresses);
-        // Display the addresses in your desired way (e.g., update a DOM element)
+        // 本番想定では、以下でアドレスを表示する（例：DOM操作など）
     }
 }
