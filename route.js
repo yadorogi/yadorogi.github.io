@@ -19,16 +19,6 @@ function initMap() {
 
         // マーカーを配列に追加する
         markers.push(marker);
-
-        // マーカーが追加されたときに地図のズームレベルが変わると使いづらいので変更しないようにする
-        const bounds = new google.maps.LatLngBounds();
-        markers.forEach(marker => bounds.extend(marker.getPosition()));
-        map.fitBounds(bounds);
-        google.maps.event.addListener(map, 'zoom_changed', function() {
-            if (map.get_zoom() > 12 ) {
-                map.set_zoom(12);
-            }
-        });
     });
 
     // マーカーを巡回する機能
@@ -77,7 +67,7 @@ function initMap() {
                     }
                 );
             }
-        }, 2000); // マーカーを立ててから画面の表示位置と、ズームを変更するまでの時間を2秒に設定する
+        }, 8000); // マーカーを立ててから画面の表示位置と、ズームを変更するまでの時間を８秒に設定する
 
     // cycleMarkers関数を呼び出して、マーカーのサイクルを開始する
     cycleMarkers();
