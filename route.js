@@ -24,6 +24,11 @@ function initMap() {
         const bounds = new google.maps.LatLngBounds();
         markers.forEach(marker => bounds.extend(marker.getPosition()));
         map.fitBounds(bounds);
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+            if (map.get_zoom() > 12 ) {
+                map.set_zoom(12);
+            }
+        });
     });
 
     // マーカーを巡回する機能
